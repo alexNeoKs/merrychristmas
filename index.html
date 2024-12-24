@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="rotating-xmas-tree.css"> -->
+  <title>Merry Christmas!</title>
+</head>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background: #0a0e13;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    overflow: hidden;
+  }
+  .tree {
+    position: relative;
+    height: 50vmin;
+    width: 25vmin;
+    transform-style: preserve-3d;
+    -webkit-animation: spin 2s infinite linear;
+            animation: spin 2s infinite linear;
+  }
+  
+  .tree__light {
+    transform-style: preserve-3d;
+    position: absolute;
+    height: 1vmin;
+    width: 1vmin;
+    border-radius: 50%;
+    -webkit-animation: flash calc(var(--speed) * 1s)
+                       calc(var(--delay) * 1s)
+                       infinite steps(4),
+                       appear 0.5s calc(var(--appear) * 0.05s)
+                       both;
+            animation: flash calc(var(--speed) * 1s) calc(var(--delay) * 1s)
+                       infinite steps(4), appear 0.5s calc(var(--appear) * 0.05s) both;
+    left: 50%;
+    transform: translate(-50%, 50%) rotateY(calc(var(--rotate, 0) * 1deg))
+                       translate3d(0, 0, calc(var(--radius, 0) * 1vmin));
+    bottom: calc(var(--y, 0) * 1%);
+  }
+  
+  .tree__star {
+    stroke-width: 5vmin;
+    stroke: #f5e0a3;
+    filter: drop-shadow(0 0 2vmin #fcf1cf);
+    height: 5vmin;
+    width: 5vmin;
+    overflow: visible !important;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    stroke-dasharray: 1000 1000;
+    fill: none;
+    -webkit-animation: stroke 1s calc((var(--delay) * 0.95) * 0.05s) both;
+            animation: stroke 1s calc((var(--delay) * 0.95) * 0.05s) both;
+  }
+  @-webkit-keyframes stroke {
+    from {
+      stroke-dashoffset: -1000;
+    }
+  }
+  @keyframes stroke {
+    from {
+      stroke-dashoffset: -1000;
+    }
+  }
+  @-webkit-keyframes spin {
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+  @keyframes spin {
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+  @-webkit-keyframes appear {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+  }
+  @-webkit-keyframes flash {
+    0%, 100% {
+      background: #f00;
+    }
+    20% {
+      background: #fff;
+    }
+    40% {
+      background: #f00;
+    }
+    60% {
+      background: #fff;
+    }
+    80% {
+      background: #f00;
+    }
+  }
+  @keyframes flash {
+    0%, 100% {
+      background: #f00;
+    }
+    20% {
+      background: #fff;
+    }
+    40% {
+      background: #f00;
+    }
+    60% {
+      background: #fff;
+    }
+    80% {
+      background: #f00;
+    }
+  }
+
+</style>
+<style>
+  .pyro > .before,
+  .pyro > .after {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    box-shadow: 0 0 #fff; /* Placeholder for $box-shadow2 */
+    animation: bang 3s ease-out infinite backwards, 
+              gravity 3s ease-in infinite backwards, 
+              position 7s linear infinite backwards;
+  }
+
+  .pyro > .after {
+    animation-delay: 1.25s, 1.25s, 1.25s;
+    animation-duration: 1.25s, 1.25s, 6.25s;
+  }
+
+  @keyframes bang {
+    to {
+      box-shadow:149.97px -34.73px hsl(74, 100%, 50%),
+      5.97px -66.52px hsl(177, 100%, 50%),
+      85.63px -60.85px hsl(337, 100%, 50%),
+      11.34px 353.71px hsl(153, 100%, 50%),
+      152.68px -217.55px hsl(49, 100%, 50%),
+      -78.74px -294.08px hsl(145, 100%, 50%),
+      131.30px 190.19px hsl(98, 100%, 50%),
+      88.50px -190.04px hsl(144, 100%, 50%),
+      143.53px 61.75px hsl(206, 100%, 50%),
+      149.92px -203.02px hsl(115, 100%, 50%),
+      -21.69px -201.88px hsl(102, 100%, 50%),
+      109.94px 306.64px hsl(77, 100%, 50%),
+      140.24px 15.45px hsl(16, 100%, 50%),
+      -128.80px 268.68px hsl(283, 100%, 50%),
+      219.58px -333.48px hsl(98, 100%, 50%),
+      96.31px -80.16px hsl(328, 100%, 50%),
+      -176.40px 48.99px hsl(266, 100%, 50%),
+      146.61px -72.97px hsl(195, 100%, 50%),
+      -51.73px -83.68px hsl(171, 100%, 50%),
+      156.79px 332.87px hsl(68, 100%, 50%),
+      153.76px -7.77px hsl(357, 100%, 50%),
+      -96.16px 324.99px hsl(338, 100%, 50%),
+      44.15px 289.00px hsl(146, 100%, 50%),
+      7.02px -315.63px hsl(209, 100%, 50%),
+      -53.03px -64.56px hsl(139, 100%, 50%),
+      -187.28px -297.69px hsl(257, 100%, 50%),
+      129.88px -201.02px hsl(58, 100%, 50%),
+      -114.23px -311.76px hsl(153, 100%, 50%),
+      29.21px -59.49px hsl(272, 100%, 50%),
+      171.77px 241.46px hsl(284, 100%, 50%),
+      5.72px 73.39px hsl(51, 100%, 50%),
+      -211.30px -247.85px hsl(22, 100%, 50%),
+      -218.54px -231.07px hsl(80, 100%, 50%),
+      -132.63px 106.93px hsl(344, 100%, 50%),
+      197.21px 386.48px hsl(165, 100%, 50%),
+      58.54px -412.44px hsl(288, 100%, 50%),
+      -90.19px 286.82px hsl(224, 100%, 50%),
+      130.77px -202.19px hsl(54, 100%, 50%),
+      -212.39px -381.80px hsl(82, 100%, 50%),
+      88.22px -49.68px hsl(227, 100%, 50%),
+      -115.07px 348.80px hsl(139, 100%, 50%),
+      80.64px 130.58px hsl(261, 100%, 50%),
+      -114.66px 415.84px hsl(159, 100%, 50%),
+      -177.11px 170.41px hsl(254, 100%, 50%),
+      -142.07px -408.43px hsl(329, 100%, 50%),
+      -187.18px 223.29px hsl(67, 100%, 50%),
+      177.49px -184.10px hsl(344, 100%, 50%),
+      -52.69px 101.52px hsl(357, 100%, 50%),
+      -10.81px 333.89px hsl(51, 100%, 50%),
+      101.96px -26.77px hsl(77, 100%, 50%);
+      
+    }
+  }
+
+  @keyframes gravity {
+    to {
+      transform: translateY(200px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes position {
+    0%, 19.9% {
+      margin-top: 10%;
+      margin-left: 40%;
+    }
+    20%, 39.9% {
+      margin-top: 40%;
+      margin-left: 30%;
+    }
+    40%, 59.9% {
+      margin-top: 20%;
+      margin-left: 70%;
+    }
+    60%, 79.9% {
+      margin-top: 30%;
+      margin-left: 20%;
+    }
+    80%, 99.9% {
+      margin-top: 30%;
+      margin-left: 80%;
+    }
+  }
+</style>
+<style>
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Ensure the text stays above both animations */
+    color: #fff;
+    font-size: 4vmin;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                 0 0 20px rgba(255, 255, 255, 0.6),
+                 0 0 30px rgba(255, 0, 0, 0.5),
+                 0 0 40px rgba(255, 0, 0, 0.4);
+    animation: fadeIn 3s ease-out, pulse 2s infinite alternate;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse {
+    from {
+      transform: translate(-50%, -50%) scale(1);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                   0 0 20px rgba(255, 255, 255, 0.6),
+                   0 0 30px rgba(255, 0, 0, 0.5),
+                   0 0 40px rgba(255, 0, 0, 0.4);
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1.1);
+      text-shadow: 0 0 15px rgba(255, 255, 255, 1),
+                   0 0 30px rgba(255, 0, 0, 0.7),
+                   0 0 45px rgba(255, 0, 0, 0.6),
+                   0 0 60px rgba(255, 0, 0, 0.5);
+    }
+  }
+</style>
+
+  <body>
+    <div class="overlay-text">
+      <p>Merry Christmas seraphfani !</p>
+      <p>Enjoy the Fireworks and the Tree!</p>
+    </div>
+    <div class="pyro" style="position:absolute;width:100%;height:100%;">
+      <div class="before"></div>
+      <div class="after"></div>
+    </div>
+  <div class="tree">
+    <div class="tree__light" style="--appear: 0; --y: 0; --rotate: 1440; --radius: 12.5; --speed: 5.8063069718666664; --delay: -1.7712136464858697;"></div>
+    <div class="tree__light" style="--appear: 1; --y: 2; --rotate: 1411.2; --radius: 12.25; --speed: 1.9048887919115098; --delay: -4.094831297550055;"></div>
+    <div class="tree__light" style="--appear: 2; --y: 4; --rotate: 1382.4; --radius: 12; --speed: 9.803304238716965; --delay: -2.139420085034358;"></div>
+    <div class="tree__light" style="--appear: 3; --y: 6; --rotate: 1353.6000000000001; --radius: 11.75; --speed: 0.9075687594618143; --delay: -8.57475397403746;"></div>
+    <div class="tree__light" style="--appear: 4; --y: 8; --rotate: 1324.8; --radius: 11.5; --speed: 9.15288108823705; --delay: -1.3081122221606223;"></div>
+    <div class="tree__light" style="--appear: 5; --y: 10; --rotate: 1296; --radius: 11.25; --speed: 4.523578551040153; --delay: -6.973304600496122;"></div>
+    <div class="tree__light" style="--appear: 6; --y: 12; --rotate: 1267.2; --radius: 11; --speed: 7.074364965436133; --delay: -3.319825322296055;"></div>
+    <div class="tree__light" style="--appear: 7; --y: 14; --rotate: 1238.4; --radius: 10.75; --speed: 0.37671554955348574; --delay: -2.514572278736855;"></div>
+    <div class="tree__light" style="--appear: 8; --y: 16; --rotate: 1209.6000000000001; --radius: 10.5; --speed: 3.757258848434142; --delay: -3.097222369287249;"></div>
+    <div class="tree__light" style="--appear: 9; --y: 18; --rotate: 1180.8; --radius: 10.25; --speed: 7.01794816556927; --delay: -1.4889107411158897;"></div>
+    <div class="tree__light" style="--appear: 10; --y: 20; --rotate: 1152; --radius: 10; --speed: 7.59121101292997; --delay: -8.893957174868277;"></div>
+    <div class="tree__light" style="--appear: 11; --y: 22; --rotate: 1123.2; --radius: 9.75; --speed: 3.6543363168252507; --delay: -3.021417797918393;"></div>
+    <div class="tree__light" style="--appear: 12; --y: 24; --rotate: 1094.4; --radius: 9.5; --speed: 5.761484520814433; --delay: -6.3400810789865965;"></div>
+    <div class="tree__light" style="--appear: 13; --y: 26; --rotate: 1065.6000000000001; --radius: 9.25; --speed: 4.992350707724129; --delay: -4.465255363840432;"></div>
+    <div class="tree__light" style="--appear: 14; --y: 28; --rotate: 1036.8; --radius: 9; --speed: 5.9714801114039195; --delay: -8.922905991722914;"></div>
+    <div class="tree__light" style="--appear: 15; --y: 30; --rotate: 1008; --radius: 8.75; --speed: 2.422153068227275; --delay: -3.8359662535359584;"></div>
+    <div class="tree__light" style="--appear: 16; --y: 32; --rotate: 979.2; --radius: 8.5; --speed: 5.769510043347765; --delay: -2.3397180922171112;"></div>
+    <div class="tree__light" style="--appear: 17; --y: 34; --rotate: 950.4; --radius: 8.25; --speed: 7.143310450641001; --delay: -5.73529258329267;"></div>
+    <div class="tree__light" style="--appear: 18; --y: 36; --rotate: 921.6; --radius: 8; --speed: 6.634175245874248; --delay: -4.659709093660358;"></div>
+    <div class="tree__light" style="--appear: 19; --y: 38; --rotate: 892.8000000000001; --radius: 7.75; --speed: 8.40663079946756; --delay: -6.627575204880043;"></div>
+    <div class="tree__light" style="--appear: 20; --y: 40; --rotate: 864; --radius: 7.5; --speed: 9.092578395992083; --delay: -3.3807970205658644;"></div>
+    <div class="tree__light" style="--appear: 21; --y: 42; --rotate: 835.2; --radius: 7.25; --speed: 2.795056075638751; --delay: -9.348001472222812;"></div>
+    <div class="tree__light" style="--appear: 22; --y: 44; --rotate: 806.4; --radius: 7; --speed: 4.466022078821927; --delay: -1.0272401913218099;"></div>
+    <div class="tree__light" style="--appear: 23; --y: 46; --rotate: 777.6; --radius: 6.75; --speed: 9.523416291122508; --delay: -5.109555028852246;"></div>
+    <div class="tree__light" style="--appear: 24; --y: 48; --rotate: 748.8000000000001; --radius: 6.5; --speed: 5.648038245700526; --delay: -4.158588015392361;"></div>
+    <div class="tree__light" style="--appear: 25; --y: 50; --rotate: 720; --radius: 6.25; --speed: 3.7878031753008234; --delay: -8.689710893502337;"></div>
+    <div class="tree__light" style="--appear: 26; --y: 52; --rotate: 691.2; --radius: 6; --speed: 1.5060837196738563; --delay: -5.542191812338899;"></div>
+    <div class="tree__light" style="--appear: 27; --y: 54; --rotate: 662.4; --radius: 5.75; --speed: 8.263773288966314; --delay: -7.600175873314194;"></div>
+    <div class="tree__light" style="--appear: 28; --y: 56; --rotate: 633.6; --radius: 5.5; --speed: 1.0406184743295466; --delay: -0.8939287756459646;"></div>
+    <div class="tree__light" style="--appear: 29; --y: 58; --rotate: 604.8000000000001; --radius: 5.25; --speed: 9.514998196769135; --delay: -6.099204389988846;"></div>
+    <div class="tree__light" style="--appear: 30; --y: 60; --rotate: 576; --radius: 5; --speed: 9.590335610370015; --delay: -9.727068620920962;"></div>
+    <div class="tree__light" style="--appear: 31; --y: 62; --rotate: 547.2; --radius: 4.75; --speed: 6.547385058886393; --delay: -3.337254097319775;"></div>
+    <div class="tree__light" style="--appear: 32; --y: 64; --rotate: 518.4; --radius: 4.5; --speed: 5.203632437965837; --delay: -1.8284702235341532;"></div>
+    <div class="tree__light" style="--appear: 33; --y: 66; --rotate: 489.6; --radius: 4.25; --speed: 1.939459565904662; --delay: -3.732095066877288;"></div>
+    <div class="tree__light" style="--appear: 34; --y: 68; --rotate: 460.8; --radius: 4; --speed: 0.1492898817841426; --delay: -3.240070411316396;"></div>
+    <div class="tree__light" style="--appear: 35; --y: 70; --rotate: 432; --radius: 3.75; --speed: 2.1775000105501285; --delay: -1.9039801784953747;"></div>
+    <div class="tree__light" style="--appear: 36; --y: 72; --rotate: 403.2; --radius: 3.5; --speed: 4.377753096952333; --delay: -7.775287067704042;"></div>
+    <div class="tree__light" style="--appear: 37; --y: 74; --rotate: 374.40000000000003; --radius: 3.25; --speed: 6.0159399225879895; --delay: -7.396255584139353;"></div>
+    <div class="tree__light" style="--appear: 38; --y: 76; --rotate: 345.6; --radius: 3; --speed: 7.117076597212646; --delay: -9.81852524071276;"></div>
+    <div class="tree__light" style="--appear: 39; --y: 78; --rotate: 316.8; --radius: 2.75; --speed: 2.686251446947263; --delay: -5.592242706174792;"></div>
+    <div class="tree__light" style="--appear: 40; --y: 80; --rotate: 288; --radius: 2.5; --speed: 8.159213192076432; --delay: -0.4731456368889386;"></div>
+    <div class="tree__light" style="--appear: 41; --y: 82; --rotate: 259.2; --radius: 2.25; --speed: 5.28051419101703; --delay: -9.981803245506544;"></div>
+    <div class="tree__light" style="--appear: 42; --y: 84; --rotate: 230.4; --radius: 2; --speed: 2.89311671030577; --delay: -0.36717264445522035;"></div>
+    <div class="tree__light" style="--appear: 43; --y: 86; --rotate: 201.6; --radius: 1.75; --speed: 7.6028555716797275; --delay: -4.57821219679309;"></div>
+    <div class="tree__light" style="--appear: 44; --y: 88; --rotate: 172.8; --radius: 1.5; --speed: 9.594923566051474; --delay: -6.385724711793996;"></div>
+    <div class="tree__light" style="--appear: 45; --y: 90; --rotate: 144; --radius: 1.25; --speed: 8.09168291274053; --delay: -1.5122285993567153;"></div>
+    <div class="tree__light" style="--appear: 46; --y: 92; --rotate: 115.2; --radius: 1; --speed: 5.717933755119415; --delay: -9.493716097746914;"></div>
+    <div class="tree__light" style="--appear: 47; --y: 94; --rotate: 86.4; --radius: 0.75; --speed: 9.090543435248852; --delay: -0.5933846000162868;"></div>
+    <div class="tree__light" style="--appear: 48; --y: 96; --rotate: 57.6; --radius: 0.5; --speed: 9.823749200360847; --delay: -4.7420985119521974;"></div>
+    <div class="tree__light" style="--appear: 49; --y: 98; --rotate: 28.8; --radius: 0.25; --speed: 2.95957301675398; --delay: -2.0371556584842487;"></div>
+    <svg class="tree__star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113.32 108.44" style="--delay: 50">
+      <path d="M90.19 104.33L57.12 87.38 24.4 105l5.91-36.69L3.44 42.65l36.72-5.72 16.1-33.5L73.06 36.6l36.83 4.97-26.35 26.21z" fill="none" stroke-width="6.88" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </div>
+
+
+  </body>
+</html>
